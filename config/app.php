@@ -80,7 +80,7 @@ return [
     |
     */
 
-    'locale' => 'en',
+    'locale' => 'es', // Aqui pasamos a español nuestra app
 
     /*
     |--------------------------------------------------------------------------
