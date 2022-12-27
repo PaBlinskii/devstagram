@@ -88,7 +88,16 @@ dd($request->get('username'));
 
 -- Si queremos las validaciones en español clonamos este git:
 git clone https://github.com/MarcoGomesr/laravel-validation-en-espanol.git resources/lang/es
-
+___________________________
+"Retomar Proyecto Github"  |
+composer install           |
+npm install                |
+generar .env               |
+php artisan key:generate   |
+hp artisan migrate         |
+hp artisan migrate:refresh |
+php artisan migrate:fresh  |
+___________________________|
 
 
 
