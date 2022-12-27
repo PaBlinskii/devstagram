@@ -99,6 +99,25 @@ hp artisan migrate:refresh |
 php artisan migrate:fresh  |
 ___________________________|
 
+-- terminamos de editar el register.blade.php y creamos la tabla de username:
+php artisan make:migration add_username_to_users_table
 
+-- asignamos en la tabla de username el metodo unique para que no permita repetidos
+Schema::table('users', function (Blueprint $table) {
+$table->string('username')->unique();
+
+-- Ejecutamos un rollback y despues migramos para que los cambios surtan efecto
+php artisan migrate:rollback --step=1
+php artisan migrate:refresh
+
+-- Modificaremos el request para añadirle el metodo slug para evitar los espacios
+
+$request->request->add(['username' => Str::slug($request->username)]);
+
+-- Creación del Controller para Posts y Login
+php artisan make:controller PostController
+php artisan make:controller LoginController
+
+-- Modificamos las rutas del /muro en web.php
 
 
