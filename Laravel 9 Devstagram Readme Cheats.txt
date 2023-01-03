@@ -88,6 +88,12 @@ dd($request->get('username'));
 
 -- Si queremos las validaciones en español clonamos este git:
 git clone https://github.com/MarcoGomesr/laravel-validation-en-espanol.git resources/lang/es
+
+-- en el controlador si hacemos un dd() y queremos acceder a un campo individual usamos:
+dd($request->get('username'));
+
+-- Si queremos las validaciones en español clonamos este git:
+git clone https://github.com/MarcoGomesr/laravel-validation-en-espanol.git resources/lang/es
 ___________________________
 "Retomar Proyecto Github"  |
 composer install           |
@@ -98,7 +104,6 @@ hp artisan migrate         |
 hp artisan migrate:refresh |
 php artisan migrate:fresh  |
 ___________________________|
-
 -- terminamos de editar el register.blade.php y creamos la tabla de username:
 php artisan make:migration add_username_to_users_table
 
@@ -120,4 +125,4 @@ php artisan make:controller LoginController
 
 -- Modificamos las rutas del /muro en web.php
 
-
+36296
