@@ -125,4 +125,102 @@ php artisan make:controller LoginController
 
 -- Modificamos las rutas del /muro en web.php
 
+-- Modificamos el LoginController.php
+-- el método back() nos redirecciona a un link anterior desde el controlador hacia la vista
+-- con @auth podemos autenticar desde blade, y @guest para los no autenticados para mostrar diferente
+-- Creamos otro controlador de para cerrar sesión
+
+php artisan make:controller LogoutController
+
+-- En web.php podemos cambiarle la configuracion get a post al controlador para usar @csrf y dar seguridad
+
+Route::post('/logout', [LogoutController::class, 'store'])->name('logout');
+
+-- Modificamos la ruta posts usando route model binding para usar el modelo con la ruta y generar link con username
+Route::get('/{user:username}', [PostController::class, 'index'])->name('posts.index');
+
+-- Para poder centrar la información del usuario usamos las clases en este div
+<div class="md:w-8/12 lg:w-6/12 px-5 flex flex-col items-center md:justify-center md:items-start py-10">
+
+-- Creación y modificación de posts/create.blade.php y asignación de auth()->user()->username, para evitar errores
+-- Instalación de Dropzone para drag and drop archivos
+npm install --save dropzone
+
+-- Problema al configurar dropzone, no salió igual al video... 
+-- Crear controlador para imagen
+php artisan make:controller ImagenController
+
+-- Modificamos ImagenController para configurarlo
+-- Instalamos InterventionImage para procesar las imagenes
+composer require intervention/image
+
+-- Para configurar Intervention hay que ir a /config/app.php y asignar la ruta en providers
+
+**--In the $providers array add the service providers for this package.--**
+	Intervention\Image\ImageServiceProvider::class
+
+**--Add the facade of this package to the $aliases array.--**
+'Image' => Intervention\Image\Facades\Image::class
+
+-- Almacenando imagenes en el servidor, modificamos ImagenController.php para eso
+
+
+
+*****************************************************************************************
+00 BB 60 0C 0F 9E
+
+SELECT * FROM ECH WHERE HSAL = 123 AND HCPO = 'MGA27122022COMJESA'
+Hitzep
+
+
+F4-34770 A 72
+https://report.feel.com.gt/ingfacereport/ingfacereport_documento?uuid=E8F55F7C-CD59-4990-AF77-149191BEEC08
+https://report.feel.com.gt/ingfacereport/ingfacereport_documento?uuid=41C9003B-3EBE-42E5-B63C-B1D1A908A055
+https://report.feel.com.gt/ingfacereport/ingfacereport_documento?uuid=2E991CC5-2620-4D01-9CFE-2CBDA849C66C
+
+F4-34773 A 34781
+F5-6211 A 6214
+
 36296
+
+
+HP LaserJet PRO M501
+
+endwtr K10_VENTAS *immed
+wrkcfgsts *dev k10_VENTAS
+
+10.3.11.65
+
+
+A5 82263 a 
+
+GT-PERINI001
+
+A5 82265 a 82272
+
+CIERRE PEV-36810
+24724
+
+CIERRE PEV-36829
+24730
+
+
+Maestria TELECOMUNICACIONES (Villa Nueva)
+Q.945.00 inscripción
+
+Q.1,670.00 mensuales
+Q.1,115.00 curso extra
+
+Q.165.00 traslado a sede
+
+Encargada de telecomunicaciones
+Glendy
+gfuentes@umg.edu.gt
+
+UR10 --85
+
+cantidad
+55760.52
+
+impuesto
+7246.74
