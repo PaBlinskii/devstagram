@@ -163,6 +163,57 @@ composer require intervention/image
 'Image' => Intervention\Image\Facades\Image::class
 
 -- Almacenando imagenes en el servidor, modificamos ImagenController.php para eso
+-- Creando modelos Post y migracion tabla posts
+
+php artisan make:model Post
+php artisan make:migration create_posts_table
+
+-- Se puede crear todo esto en una sola linea
+php artisan make:model --migration --factory Post
+
+-- modificamos la tabla post y la migramos, modificamos el factory post
+-- Usamos TINKER un CLI de Laravel para interactuar con la App y BD
+php artisan tinker
+$usuario = User::find(4)
+App\Models\Post::factory()
+
+-- Realizamos el llenado de datos con el siguiente comando desde tinker
+Post::factory()->times(200)->create();
+
+-- Ahora realizamos un rollback para probarlo
+php artisan migrate:rollback --step=1
+php artisan migrate
+php artisan tinker
+Post::factory()->times(200)->create();
+
+-- Terminamos de configurar el resource/app.js para las imagenes de dropzone el value en el input hidden
+-- Creando las relaciones entre usuario y post en User.php
+
+	-- Relación User.php normal un usuario tiene post
+	return $this->hasMany(Post::class);
+
+	-- Relación Post.php inversa, varios post tienen un usuario
+	return $this->belongsTo(User::class)->select(['name', 'username']);
+
+-- Modificando el dashboard para mostrar los posts y añadiendole estilos
+-- Agregando Tailwind a la paginación (Desde v3 hay que especificar los componentes JIT) en tailwind.config.js
+
+    "./vendor/laravel/framework/src/Illuminate/Pagination/resources/views/*.blade.php",
+
+-- Routing para las publicaciones al darle clic a una imagen
+-- Mejorando la estructura de las URL's, para eso pasamos dos valores al route
+
+Route::get('/{user:username}/posts/{post}', [PostController::class, 'show'])->name('posts.show');
+
+-- También tenemos que pasarle un array con las variables en la vista
+
+ <a href="{{ route('posts.show', ['post' => $post, 'user' => $user ])}}">
+
+-- Le agregamos al post el titulo y el time con este magnifico código
+	{{ $post->created_at->diffForHumans() }}
+
+-- link de Carbon para formatear fechas y hora
+https://carbon.nesbot.com/docs/
 
 
 
