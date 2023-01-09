@@ -47,4 +47,24 @@ class User extends Authenticatable
     {   // Creando la relación
         return $this->hasMany(Post::class);
     }
+
+    public function likes()
+    {
+        // Un Usuario puede tener muchos likes en muchas publicaciones
+        return $this->hasMany(Like::class);
+    }
+
+    // Almacena los seguidores de un usuario
+    public function followers()
+    {
+        // Este metodo va insertar en la tabla followers tanto 'user_id' como 'follower_id'
+        // Como nos salimos de las convenciones de laravel especificamos más
+        return $this->belongsToMany(User::class, 'followers', 'user_id', 'follower_id');
+    }
+
+    // Comprobar si el usuario ya sigue a otro
+    public function siguiendo(User $user)
+    {
+        return $this->followers->contains( $user->id );
+    }
 }

@@ -28,7 +28,7 @@ var dropzone = new dropzone__WEBPACK_IMPORTED_MODULE_0__["default"]("#dropzone",
   init: function init() {
     if (document.querySelector('[name="imagen"]').value.trim()) {
       var imagenPublicada = {};
-      imagenPublicada.size = 1234;
+      imagenPublicada.size = 1234; // Establecemos un tamaño cualquiera para la imagen 
       imagenPublicada.name = document.querySelector('[name="imagen"]').value;
       this.options.addedfile.call(this, imagenPublicada); // cuando se inicie la funcion llama a la imagen, se puede usar bind pero hay que llamar a la funcion
       this.options.thumbnail.call(this, imagenPublicada, "/uploads/".concat(imagenPublicada.name));

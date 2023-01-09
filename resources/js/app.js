@@ -17,7 +17,7 @@ const dropzone = new Dropzone("#dropzone", {
         init:function() {
             if(document.querySelector('[name="imagen"]').value.trim()){
                 const imagenPublicada = {}
-                imagenPublicada.size = 1234;
+                imagenPublicada.size = 1234; // Establecemos un tamaño cualquiera para la imagen 
                 imagenPublicada.name = document.querySelector('[name="imagen"]').value
 
                 this.options.addedfile.call( this, imagenPublicada); // cuando se inicie la funcion llama a la imagen, se puede usar bind pero hay que llamar a la funcion
