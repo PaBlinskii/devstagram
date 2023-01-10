@@ -43,7 +43,7 @@
                         id="password"
                         name="password"
                         type="password"
-                        placeholder="Tu Email de Registro"
+                        placeholder="Ingresa Tu Contraseña"
                         class="border p-3 w-full rounded-lg @error('password') border-red-500 @enderror"
                     />
                     @error('password')

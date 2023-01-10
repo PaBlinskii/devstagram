@@ -3,8 +3,8 @@
 namespace App\Http\Controllers;
 
 use App\Models\Post;
+use App\Models\User;
 use Illuminate\Http\Request;
-use Illuminate\Foundation\Auth\User;
 use Illuminate\Support\Facades\File;
 
 class PostController extends Controller
@@ -21,7 +21,7 @@ class PostController extends Controller
         // dd(auth()->user());
         // dd($user->username);
         // dd($posts);
-        $posts = Post::where('user_id', $user->id)->paginate(20);; //También se puede usar simplePaginate();
+        $posts = Post::where('user_id', $user->id)->latest()->paginate(20);; //También se puede usar simplePaginate();
 
         // Lo que le pase acá se verá en la vista
         return view('dashboard', [

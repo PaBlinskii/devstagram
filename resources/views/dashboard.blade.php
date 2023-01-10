@@ -25,34 +25,38 @@
                 <div class="flex items-center gap-2">
                     <p class="text-gray-700 text-2xl">{{ $user->username }}</p>
                     {{-- Autenticamos para que solo si esta logueado pueda acceder a su dashboard --}}
-                    @auth 
+                    @auth
                         @if($user->id === auth()->user()->id)
-                        <a href="{{ route( 'perfil.index' )}}" class="text-gray-500 hover:text-gray-600 cursor-pointer">
-                            <svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" stroke-width="1.5" stroke="currentColor" class="w-6 h-6">
-                                <path stroke-linecap="round" stroke-linejoin="round" d="M16.862 4.487l1.687-1.688a1.875 1.875 0 112.652 2.652L10.582 16.07a4.5 4.5 0 01-1.897 1.13L6 18l.8-2.685a4.5 4.5 0 011.13-1.897l8.932-8.931zm0 0L19.5 7.125M18 14v4.75A2.25 2.25 0 0115.75 21H5.25A2.25 2.25 0 013 18.75V8.25A2.25 2.25 0 015.25 6H10" />
-                            </svg>
-                        </a>
+                            <a 
+                                href="{{ route('perfil.index') }}"
+                                class="text-gray-500 hover:text-gray-600 cursor-pointer"
+                            >
+                                <svg xmlns="http://www.w3.org/2000/svg" class="h-5 w-5" viewBox="0 0 20 20" fill="currentColor">
+                                    <path d="M13.586 3.586a2 2 0 112.828 2.828l-.793.793-2.828-2.828.793-.793zM11.379 5.793L3 14.172V17h2.828l8.38-8.379-2.83-2.828z" />
+                                </svg>
+                            </a>
+
                         @endif
                     @endauth
                 </div>
                 <p class="text-gray-800 text-sm mb-3 font-bold mt-5">
-                    0
-                    <span class="font-normal"> Seguidores</span>
+                    {{ $user->followers->count()}}
+                    <span class="font-normal">  @choice('Seguidor|Seguidores', $user->followers->count() ) </span>
                 </p>
 
                 <p class="text-gray-800 text-sm mb-3 font-bold">
-                    0
-                    <span class="font-normal"> Siguiendo</span>
+                    {{ $user->followings->count()}}
+                    <span class="font-normal"> Siguiendo </span>
                 </p>
 
                 <p class="text-gray-800 text-sm mb-3 font-bold">
-                    {{$posts->count()}}
+                    {{ $user->posts->count() }}
                     <span class="font-normal"> Posts</span>
                 </p>
 
                 @auth
                     {{-- Para mostrar SEGUIR solo si es diferente al loggeado  --}}
-                    @if($user->id !== auth()->user()->id )       
+                    @if($user->id !== auth()->user()->id )      
                         {{-- $user es la persona que estamos visitando perfil y auth() es la persona que esta visitando --}}
                         {{-- Esta persona no es seguidor, entonces siguelo --}}
                         @if( !$user->siguiendo( auth()->user() ) )
@@ -60,30 +64,28 @@
                                 action="{{ route('users.follow', $user) }}"
                                 method="POST"
                             >
-                                @csrf 
+                            @csrf
                                 <input
                                     type="submit"
-                                    class="bg-blue-600 text-white uppercase rounded-lg px-3 py-1 text-ls font-bold cursor-pointer"
+                                    class="bg-blue-600 text-white uppercase rounded-lg px-3 py-1 text-xs font-bold cursor-pointer"
                                     value="Seguir"
-                                />
-
+                                    />
                             </form>
                         @else 
-                            <form 
+                            <form
                                 action="{{ route('users.unfollow', $user) }}"
                                 method="POST"
                             >
-                                @csrf 
-                                @method('DELETE')
+                                @csrf
+                                @method('DELETE') 
                                 <input
                                     type="submit"
-                                    class="bg-red-600 text-white uppercase rounded-lg px-3 py-1 text-ls font-bold cursor-pointer"
+                                    class="bg-red-600 text-white uppercase rounded-lg px-3 py-1 text-xs font-bold cursor-pointer"
                                     value="Dejar de Seguir"
                                 />
-
                             </form>
-                        @endif 
-                    @endif    
+                        @endif
+                    @endif
                 @endauth
             </div>
         </div>
@@ -93,26 +95,7 @@
         <h2 class="text-4xl text-center font-black my-10">Publicaciones</h2>
         {{-- {{ dd($posts) }} --}}
 
-        {{-- Si existen post los muestra --}}
-        @if ($posts->count())
-            
-        <div class="grid md:grid-cols-2 lg:grid-cols-3 xl:grid-cols-4 gap-6">
-        @foreach ($posts as $post)
-            <div>
-                <a href="{{ route('posts.show', ['post' => $post, 'user' => $user ])}}">
-                    <img src="{{ asset('uploads') . '/' . $post->imagen }}" alt="Imagen del Post {{ $post->titulo }}">
-                </a>
-            </div>    
-        @endforeach
-        </div>
-
-        <div class="my-10">
-            {{ $posts->links() }}
-        </div>
-
-        @else
-            <p class="text-gray-600 uppercase text-sm text-center font-bold">No hay Posts</p>
-        @endif
+        <x-listar-post :posts="$posts" />
 
     </section>
 

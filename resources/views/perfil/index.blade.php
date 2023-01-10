@@ -20,8 +20,7 @@
                         type="text"
                         placeholder="Tu Nombre de Usuario"
                         class="border p-3 w-full rounded-lg"
-                        value=""
-                        accept=".jpg, .jpeg, .png"
+                        value="{{ auth()->user()->username }}"
                     />
                     @error('username')
                         <p class="bg-red-500 text-white my-2 rounded-lg text-sm p-2 text-center">{{ $message }}</p>
@@ -37,7 +36,8 @@
                         name="imagen"
                         type="file"
                         class="border p-3 w-full rounded-lg @error('imagen') border-red-500 @enderror"
-                        value="{{ auth()->user()->username }}"
+                        value=""
+                        accept=".jpg, .jpeg, .png"
                     />
 
                     <input 

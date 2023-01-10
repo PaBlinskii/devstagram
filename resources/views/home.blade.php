@@ -4,8 +4,10 @@
     Pagina Principal
 @endsection
 
+
 @section('contenido')
 
-Contenido de esta página
+{{-- si se deja así /> el componente no va soportar slots --}}
+    <x-listar-post :posts="$posts" />
 
 @endsection

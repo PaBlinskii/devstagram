@@ -9,15 +9,16 @@
         <link href="https://fonts.googleapis.com/css2?family=Nunito:wght@400;600;700&display=swap" rel="stylesheet">
         <link href="{{ asset('css/app.css') }}" rel="stylesheet">
         <script src="{{ asset('js/app.js') }}" defer></script>
+        @livewireStyles
         {{-- <script src="https://unpkg.com/dropzone@5/dist/min/dropzone.min.js"></script> --}}
         {{-- <link rel="stylesheet" href="https://unpkg.com/dropzone@5/dist/min/dropzone.min.css" type="text/css" /> --}}
     </head>
     <body class="bg-gray-100">
         <header class="p-5 border-b bg-white shadow">
             <div class="container mx-auto flex justify-between items-center">
-                <h1 class="text-3xl font-black">
+                <a href="{{ route('home' )}}" class="text-3xl font-black">
                     DevStagram
-                </h1>
+                </a>
                 {{-- 
                 @if (auth()->user())
                     <p>Autenticado</p>
@@ -77,5 +78,6 @@
             DevStagram - Todos los Derechos Reservados
             {{ now()->year }} 
 
+            @livewireScripts
     </body>
 </html>
